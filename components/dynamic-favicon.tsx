@@ -4,7 +4,7 @@ import { useEffect } from "react"
 
 export function DynamicFavicon() {
   useEffect(() => {
-    const href = "/placeholder-logo.svg"
+    const href = "/favicon.svg"
     let link = document.querySelector('link[rel="icon"]') as HTMLLinkElement | null
     if (!link) {
       link = document.createElement("link")
