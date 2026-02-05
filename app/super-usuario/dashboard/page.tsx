@@ -35,6 +35,7 @@ import { Card } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 import { handleSecureLogout } from "@/lib/utils"
+import { useAuth } from "@/lib/auth-context"
 // Importar funciones de Supabase
 import { getVendors, createVendor, updateVendor, deleteVendor } from "@/lib/vendors"
 import { getEvents, createEvent, updateEvent, deleteEvent, awardEvent, subscribeToEvents } from "@/lib/events"
@@ -51,6 +52,7 @@ import type { Vendor, Event, ClosedDraw } from "@/types"
 
 export default function SuperUserDashboard() {
   const router = useRouter()
+  const { signOut } = useAuth()
   const [vendors, setVendors] = useState<Vendor[]>([])
   const [events, setEvents] = useState<Event[]>([])
   const [closedDraws, setClosedDraws] = useState<ClosedDraw[]>([])
@@ -493,7 +495,7 @@ setVendors(vendors.map((v) => (v.id === id ? { ...v, showPassword: !v.showPasswo
               </Button>
             </div>
 
-            <Button onClick={() => handleSecureLogout(router)} variant="destructive">
+            <Button onClick={signOut} variant="destructive">
               <LogOut className="h-4 w-4 md:mr-2" />
               <span className="hidden md:inline">Cerrar Sesión</span>
             </Button>
@@ -878,4 +880,3 @@ setVendors(vendors.map((v) => (v.id === id ? { ...v, showPassword: !v.showPasswo
     </div>
   )
 }
-

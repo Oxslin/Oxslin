@@ -112,8 +112,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Función para cerrar sesión
   const signOut = () => {
+    try {
+      // Cerrar sesión en Supabase para limpiar tokens almacenados
+      // No esperamos la promesa para mantener la firma sincrónica
+      supabase.auth.signOut().catch((err) => {
+        console.warn("supabase.auth.signOut error:", err)
+      })
+    } catch (e) {
+      console.warn("Error iniciando signOut de Supabase:", e)
+    }
     localStorage.removeItem("oxslin_session")
     localStorage.removeItem("currentVendorEmail") // Para compatibilidad
+    try {
+      // Limpiar token de auth del cliente (storageKey configurado en supabase.ts)
+      localStorage.removeItem("oxslin-auth-token")
+    } catch (e) {
+      // noop
+    }
     setUser(null)
 
     // Marcar que venimos de un cierre de sesión
@@ -200,4 +215,3 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
-
