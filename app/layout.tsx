@@ -19,8 +19,8 @@ export const metadata = {
   title: "Oxslin - Sistema de Gestión de Sorteos",
   description: "Plataforma para la gestión de sorteos y vendedores",
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-icon.png",
+    icon: "/placeholder-logo.svg",
+    apple: "/placeholder-logo.png",
   },
     generator: 'v0.dev'
 }
